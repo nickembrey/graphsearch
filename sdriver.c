@@ -16,5 +16,8 @@ int main(int argc, char ** argv) {
     scanf("%s", input);
     printf("\n%s", input);
 
+    node start_node;
+    read_input(input, start_node);
+
     return 0;
 }

@@ -10,4 +10,11 @@
 
 // structs and unions here
 
+typedef struct {
+    struct node ** edges;
+    int value;
+} node;
+
 // function prototypes here
+//
+void read_input(char * filename, node start_node);
