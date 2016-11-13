@@ -1,0 +1,13 @@
+CC = gcc
+
+OBJS = sdriver.o graph_functions.o
+
+all: sdriver
+
+sdriver: $(OBJS)
+		$(CC) -o sdriver $(OBJS)
+.c.o:
+		$(CC) $(CFLAGS) -g -Wall -c $<
+			
+clean:
+		rm -f sdriver *.o core
