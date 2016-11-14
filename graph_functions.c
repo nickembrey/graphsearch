@@ -16,12 +16,13 @@ void read_input(char * filename, graph * current_graph) {
     fscanf(read_file, "%s", read_string);
     node_number = atoi(read_string);
     current_graph->node_number = node_number;
-    current_graph->nodes = malloc(sizeof(node) * node_number);
+    current_graph->nodes = malloc(sizeof(node) * (node_number + 1));
     int counter;
-    for(counter = 0; counter < node_number; counter++) {
+    for(counter = 1; counter <= node_number; counter++) {
         current_graph->nodes[counter] = malloc(sizeof(node));
-        current_graph->nodes[counter]->value = counter + 1;
-        printf("\nNode number %d initializing.\n", current_graph->nodes[counter]->value);
+        current_graph->nodes[counter]->value = counter;
+        current_graph->nodes[counter]->edges = malloc(sizeof(node *) * node_number);
+        printf("\nNode number %d (%d) initializing.\n", current_graph->nodes[counter]->value, counter);
     }
 
     printf("\n%d\n", node_number);
@@ -31,11 +32,20 @@ void read_input(char * filename, graph * current_graph) {
     edge_number = atoi(read_string);
     
     printf("\n%d\n", edge_number);
-    
-    for(counter = 0; counter < edge_number; counter++) {
-        fscanf(read_file, "%s", read_string);
+    int origin;
+    int destination;
 
+    printf("\n?\n");
+
+
+    for(counter = 0; counter < edge_number; counter++) {
+        fscanf(read_file, " (%d,%d)", &origin, &destination);
+        printf("\ncurrent origin: %d\ncurrent destination: %d\n", origin, destination);
+        current_graph->nodes[origin]->edges[destination] = current_graph->nodes[destination];
     }
+    
+    printf("!!!!");
+    printf("\n***%d***\n", current_graph->nodes[1]->edges[4]->value);
 
     return;
 }
