@@ -16,6 +16,11 @@ void read_input(char * filename, graph * current_graph) {
     fscanf(read_file, "%s", read_string);
     node_number = atoi(read_string);
     current_graph->node_number = node_number;
+    current_graph->nodes = malloc(sizeof(node) * node_number);
+    int counter;
+    for(counter = 0; counter < node_number; counter++) {
+        current_graph->nodes[counter] = malloc(sizeof(node));
+    }
 
     printf("\n%d\n", node_number);
 
@@ -25,7 +30,6 @@ void read_input(char * filename, graph * current_graph) {
     
     printf("\n%d\n", edge_number);
     
-    int counter;
     for(counter = 0; counter < edge_number; counter++) {
         fscanf(read_file, "%s", read_string);
 
