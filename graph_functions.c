@@ -20,6 +20,8 @@ void read_input(char * filename, graph * current_graph) {
     int counter;
     for(counter = 0; counter < node_number; counter++) {
         current_graph->nodes[counter] = malloc(sizeof(node));
+        current_graph->nodes[counter]->value = counter + 1;
+        printf("\nNode number %d initializing.\n", current_graph->nodes[counter]->value);
     }
 
     printf("\n%d\n", node_number);

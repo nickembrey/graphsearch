@@ -10,12 +10,12 @@
 
 // structs and unions here
 
-typedef struct {
+typedef struct node {
     struct node ** edges;
     int value;
 } node;
 
-typedef struct {
+typedef struct graph {
     struct node ** nodes;
     int node_number;
     int start_node;
