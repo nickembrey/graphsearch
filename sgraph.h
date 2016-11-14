@@ -15,6 +15,12 @@ typedef struct {
     int value;
 } node;
 
+typedef struct {
+    struct node ** nodes;
+    int node_number;
+    int start_node;
+} graph;
+
 // function prototypes here
 //
-void read_input(char * filename, node start_node);
+void read_input(char * filename, graph * current_graph);

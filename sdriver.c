@@ -16,8 +16,9 @@ int main(int argc, char ** argv) {
     scanf("%s", input);
     printf("\n%s", input);
 
-    node start_node;
-    read_input(input, start_node);
+    graph * current_graph;
+    current_graph = malloc(sizeof(graph));
+    read_input(input, current_graph);
 
     return 0;
 }
