@@ -19,6 +19,7 @@ int main(int argc, char ** argv) {
     graph * current_graph;
     current_graph = malloc(sizeof(graph));
     read_input(input, current_graph);
+    depth_first_search(current_graph, current_graph->nodes[current_graph->start_node]);
 
     return 0;
 }

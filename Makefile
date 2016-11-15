@@ -4,6 +4,12 @@ OBJS = sdriver.o graph_functions.o
 
 all: sdriver
 
+debug: sdebug
+
+
+sdebug: $(OBJS)
+		$(CC) -g -o sdriver $(OBJS)
+
 sdriver: $(OBJS)
 		$(CC) -o sdriver $(OBJS)
 .c.o:
