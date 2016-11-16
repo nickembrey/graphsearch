@@ -62,19 +62,25 @@ void read_input(char * filename, graph * current_graph) {
     int origin;
 
     read_file = fopen(filename, "r");
-    fscanf(read_file, "%s", read_string);
-    if(strlen(read_string) > 20) {
-        printf("Sorry, that filename is too long. Please restart the program and try again with a shorter filename.");
-        return;
+    if(read_file == NULL) {
+        printf("\nSorry, that file could not be found.\n");
+        exit(EXIT_FAILURE);
     }
-    printf("\n%s\n", read_string);
+    fgets(read_string, 20, read_file);
+    if(strlen(read_string) > 20) {
+        printf("\nSorry, the title of the graph is too long. Please restart the program and try again with a shorter graph title.\n");
+        exit(EXIT_FAILURE);
+    }
+    printf("\nGraph name: ");
+    for(counter = 0; counter < sizeof read_string; counter++) printf("%c", read_string[counter]);
 
-    fscanf(read_file, "%s", read_string);
-    if(strlen(read_string) > 20) {
-        printf("Sorry, that filename is too long. Please restart the program and try again with a shorter filename.");
-        return;
+    fscanf(read_file, "%d", &node_number);
+    if(node_number < 2 || node_number > 20) {
+        printf("\nSorry, the file has an invalid number of vertices. Please restart the program and try again with between 2 & 20 vertices.\n");
+        exit(EXIT_FAILURE);
     }
-    node_number = atoi(read_string);
+    printf("\nNo. of vertices = %d", node_number);
+
     current_graph->node_number = node_number;
     current_graph->nodes = malloc(sizeof(node) * (node_number + 1));
     for(counter = 1; counter <= node_number; counter++) { // Initialize nodes.
@@ -85,31 +91,26 @@ void read_input(char * filename, graph * current_graph) {
         current_graph->nodes[counter]->visited = FALSE;
         current_graph->nodes[counter]->next = NULL; // Initialize next pointer to NULL.
         current_graph->nodes[counter]->prev = NULL; // Initialize prev pointer to NULL;
-        printf("\nNode number %d (%d) initializing.\n", current_graph->nodes[counter]->value, counter);
     }
 
-    printf("\n%d\n", node_number);
-
-    fscanf(read_file, "%s", read_string);
-    if(strlen(read_string) > 20) {
-        printf("Sorry, that filename is too long. Please restart the program and try again with a shorter filename.");
-        return;
+    fscanf(read_file, "%d", &edge_number);
+    if(edge_number < 0 || edge_number > node_number) {
+        printf("\nSorry, the file has an invalid number of edges. Please restart the program and try again with a positive number of edges that is less than or equal to the number of vertices.\n");
+        exit(EXIT_FAILURE);
     }
-    edge_number = atoi(read_string);
-    
-    printf("\n%d\n", edge_number);
-
-    printf("\n?\n");
+    printf("\nNo. of edges = %d", edge_number);
 
     for(counter = 0; counter < edge_number; counter++) {
         fscanf(read_file, " (%d,%d)", &origin, &destination);
-        printf("\ncurrent origin: %d\ncurrent destination: %d\n", origin, destination);
+        if(origin < 0 || origin > node_number || destination < 0 || destination > node_number) {
+            printf("\nSorry, the edge list in the file is invalid. Please restart the program and try again, ensuring the edge list contains exactly the number of edges given as edges and that each edge is entered in the following form (vertex1,vertex2).\n");
+            exit(EXIT_FAILURE);
+        }
         current_graph->nodes[origin]->edges[destination] = current_graph->nodes[destination];
     }
     
-
     fscanf(read_file, "%d", &current_graph->start_node);
-    printf("\nStart node: %d\n", current_graph->start_node);
+    printf("\nStart vertex = %d", current_graph->start_node);
     return;
 }
 
@@ -120,11 +121,8 @@ void read_input(char * filename, graph * current_graph) {
 void depth_first_search(graph * current_graph, node * current_node) {
     int counter;
     
-    printf("\n^^^%d^^^\n", current_graph->start_node);
-    printf("\n?\n");
-    printf("\n%d\n", current_node->value);
     if(current_node->visited) return;
-    printf("%d ", current_node->value);
+    printf(" %d", current_node->value);
     current_node->visited = TRUE;
     for(counter = 1; counter <= current_graph->node_number; counter++) {
         if(current_node->edges[counter] != NULL) depth_first_search(current_graph, current_node->edges[counter]);
@@ -142,28 +140,32 @@ void breadth_first_search(graph * current_graph) {
     int counter;
 
     current_node = current_graph->nodes[current_graph->start_node];
-    printf(" %d", current_node->value);
     current_node->visited = TRUE;
   
     current_queue = malloc(sizeof(queue));
     init_queue(current_queue);
+    printf(" %d", current_node->value);
     for(counter = 1; counter<=current_graph->node_number; counter++) {
         if(current_node->edges[counter] != NULL) {
-            enqueue(current_queue, current_node->edges[counter]);
+            enqueue(current_queue, current_node->edges[counter]); 
+            printf(" %d", current_node->edges[counter]->value);
             current_node->edges[counter]->visited = TRUE;
         }
     }
-    while( (current_node = dequeue(current_queue)) != NULL) {
-        printf(" %d", current_node->value);
 
-        for(counter = 1; counter<=current_graph->node_number; counter++) {
-            if(current_node->edges[counter] != NULL) {
+    while( (current_node = dequeue(current_queue)) != NULL) {
+        for(counter = 1; counter <= current_graph->node_number; counter++) {
+            if(current_node->edges[counter] != NULL && !current_node->edges[counter]->visited) {
                 enqueue(current_queue, current_node->edges[counter]);
+                printf(" %d", current_node->edges[counter]->value);
                 current_node->edges[counter]->visited = TRUE;
             }
         }
     }
-
+    
+    for(counter = 1; counter <= current_graph->node_number; counter++) {
+        current_graph->nodes[counter]->visited = FALSE;
+    }
+    // reset everything.
     return;
 }
-    
