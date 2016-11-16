@@ -36,7 +36,7 @@ void read_input(char * filename, graph * current_graph);
 
 void depth_first_search(graph * current_graph, node * start_node);
 
-void breadth_first_search(graph * current_graph, node * current_node);
+void breadth_first_search(graph * current_graph);
 
 void enqueue(queue * current_queue, node * current_node);
 
