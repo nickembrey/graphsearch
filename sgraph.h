@@ -13,23 +13,25 @@
 
 // structs and unions here
 
+// 
+
 typedef struct node {
-    struct node ** edges;
-    struct node * next;
-    struct node * prev;
+    struct node ** edges; // Points to an array of pointers to node and describes the edges that a given node has.
+    struct node * next; // Points to the next node if the node is in an ADT.
+    struct node * prev; // Points to the previous node if the node is in an ADT.
     int value;
     BOOL visited;
 } node;
 
 typedef struct graph {
-    struct node ** nodes;
+    struct node ** nodes; // Pointers to an array of pointers to node that describes all the nodes on the graph.
     int node_number;
     int start_node;
 } graph;
 
 typedef struct queue {
-    node * head;
-    node * tail;
+    node * head; // Points to the first node in the queue.
+    node * tail; // Points to the last node in the queue.
     int size;
 } queue;
 

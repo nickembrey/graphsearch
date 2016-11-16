@@ -11,9 +11,11 @@
 
 #include "sgraph.h"
 
+// Main reads in the name of the input file and calls the appropriate functions.
+
 int main(int argc, char ** argv) {    
     char input[20];
-    graph * current_graph;
+    graph * current_graph; // Points to the graph being used to store the input file.
 
     printf("\nPlease enter the name of the input file. ");
     scanf("%s", input);

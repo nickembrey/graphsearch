@@ -53,7 +53,7 @@ node * dequeue(queue * current_queue) {
 // Returns void.
 void read_input(char * filename, graph * current_graph) { 
     char read_string[20];
-    FILE * read_file;
+    FILE * read_file; // Points to the file being read from.
     int counter;
     int destination;
     int edge_number;
@@ -137,8 +137,8 @@ void depth_first_search(graph * current_graph, node * current_node) {
 // Takes a pointer to the graph.
 // Returns void.
 void breadth_first_search(graph * current_graph) {
-    node * current_node;
-    queue * current_queue; 
+    node * current_node; // Points to the node that is currently being performed on.
+    queue * current_queue; // Points to a queue structure for organizing the nodes.
     int counter;
 
     current_node = current_graph->nodes[current_graph->start_node];
