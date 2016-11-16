@@ -1,24 +1,30 @@
-# TITLE
+# graphsearch
 
-#### _BRIEF DESCRIPTION._
+#### _Performs a demo breadth first and depth first search on a graph._
 
-#### _Date created: DATE CREATED._
+#### _Date created: November 16, 2016._
 
-#### _Last modified: DATE LAST MODIFIED._
+#### _Last modified: November 16, 2016._
 
 #### By _**Nick Embrey.**_
 
 ## Description
 
-_LENGTHY DESCRIPTION._
+_The program prompts user for an input file that describes a graph. The graph file is described by the following parameters:
+
+* The first line contains the graph name. (<= 20 characters)
+* The second line contains the number of vertices on the graph. (2 <= vertices <= 20)
+* The third line contains the number of edges in the graph. (edges <= vertices)
+* The following lines contain ordered pairs that describe the edges in the form (v1,v2).
+* The final line contains the start vertex for the searches.
+
+The program uses the graph described in this file to run a demo breadth-first and depth-first search. These searches traverse the entire graph and print the vertices they visit in order without repeating vertices that are visited more than once._
 
 ## Setup/Installation Requirements
 
-* _STEP 1._
-* _STEP 2._
-* _STEP 3._
-* _STEP 4._
-* _STEP 5._
+* _Download source code to an empty directory._
+* _Run 'make' from the command line._
+* _Run sdriver and input the name of a file describing a graph (see above for format)._
 
 ## Support and contact details
 
@@ -26,7 +32,7 @@ _Contact me at cne.embrey@gmail.com_
 
 ## Technologies Used
 
-_TECHNOLOGIES USED._
+_C language._
 
 ### License
 
