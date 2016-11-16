@@ -1,4 +1,7 @@
-// HEADER FILE TEMPLATE.
+// Nick Embrey
+// November 16, 2016
+// NEW BEGINNINGS Theory II
+// Programming Assignment 4
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,9 +28,9 @@ typedef struct graph {
 } graph;
 
 typedef struct queue {
-    int size;
     node * head;
     node * tail;
+    int size;
 } queue;
 
 // function prototypes here

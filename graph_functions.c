@@ -1,4 +1,7 @@
-// FUNCTION FILE TEMPLATE.
+// Nick Embrey
+// November 16, 2016
+// NEW BEGINNINGS Theory II
+// Programming Assignment 4
 
 #include "sgraph.h"
 
@@ -48,13 +51,17 @@ node * dequeue(queue * current_queue) {
 // Reads input from a well-formed input file that describes a directed graph.
 // Takes a pointer to a string of characters and a pointer to a graph struct that will hold the graph being created.
 // Returns void.
-void read_input(char * filename, graph * current_graph) {
-
-    // TODO: add error handling for improper input files.
-    FILE * read_file;
-    read_file = fopen(filename, "r");
+void read_input(char * filename, graph * current_graph) { 
     char read_string[20];
+    FILE * read_file;
+    int counter;
+    int destination;
+    int edge_number;
+    int inner_counter;
+    int node_number;
+    int origin;
 
+    read_file = fopen(filename, "r");
     fscanf(read_file, "%s", read_string);
     if(strlen(read_string) > 20) {
         printf("Sorry, that filename is too long. Please restart the program and try again with a shorter filename.");
@@ -62,7 +69,6 @@ void read_input(char * filename, graph * current_graph) {
     }
     printf("\n%s\n", read_string);
 
-    int node_number;
     fscanf(read_file, "%s", read_string);
     if(strlen(read_string) > 20) {
         printf("Sorry, that filename is too long. Please restart the program and try again with a shorter filename.");
@@ -71,8 +77,6 @@ void read_input(char * filename, graph * current_graph) {
     node_number = atoi(read_string);
     current_graph->node_number = node_number;
     current_graph->nodes = malloc(sizeof(node) * (node_number + 1));
-    int counter;
-    int inner_counter;
     for(counter = 1; counter <= node_number; counter++) { // Initialize nodes.
         current_graph->nodes[counter] = malloc(sizeof(node));
         current_graph->nodes[counter]->value = counter;
@@ -86,7 +90,6 @@ void read_input(char * filename, graph * current_graph) {
 
     printf("\n%d\n", node_number);
 
-    int edge_number;
     fscanf(read_file, "%s", read_string);
     if(strlen(read_string) > 20) {
         printf("Sorry, that filename is too long. Please restart the program and try again with a shorter filename.");
@@ -95,8 +98,6 @@ void read_input(char * filename, graph * current_graph) {
     edge_number = atoi(read_string);
     
     printf("\n%d\n", edge_number);
-    int origin;
-    int destination;
 
     printf("\n?\n");
 
@@ -118,6 +119,7 @@ void read_input(char * filename, graph * current_graph) {
 // Returns void.
 void depth_first_search(graph * current_graph, node * current_node) {
     int counter;
+    
     printf("\n^^^%d^^^\n", current_graph->start_node);
     printf("\n?\n");
     printf("\n%d\n", current_node->value);
@@ -136,13 +138,15 @@ void depth_first_search(graph * current_graph, node * current_node) {
 // Returns void.
 void breadth_first_search(graph * current_graph) {
     node * current_node;
+    queue * current_queue; 
+    int counter;
+
     current_node = current_graph->nodes[current_graph->start_node];
     printf(" %d", current_node->value);
     current_node->visited = TRUE;
-    queue * current_queue;
+  
     current_queue = malloc(sizeof(queue));
     init_queue(current_queue);
-    int counter;
     for(counter = 1; counter<=current_graph->node_number; counter++) {
         if(current_node->edges[counter] != NULL) {
             enqueue(current_queue, current_node->edges[counter]);

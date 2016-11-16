@@ -8,7 +8,7 @@ debug: sdebug
 
 
 sdebug: $(OBJS)
-		$(CC) -g -o sdriver $(OBJS)
+		$(CC) -g -O0 -o sdriver $(OBJS)
 
 sdriver: $(OBJS)
 		$(CC) -o sdriver $(OBJS)
